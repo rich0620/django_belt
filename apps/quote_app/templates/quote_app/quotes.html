@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Quotes</title>
+</head>
+<body>
+    <a href="/">Logout</a>
+
+
+    <h4>Welcome, {{ request.session.name }}!</h4>
+    <br>
+
+
+    <form action="/createQuote" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <h4>Contribute a Quote</h4>
+            <br>
+            <label for="author">
+                <b>Quoted By:</b>
+            </label>
+            <input type="text" placeholder="Quote Author" name="author">
+            <br>
+            <label for="text">
+                <b>Quote</b>
+            </label>
+            <input type="text" placeholder="Quote" name="text">
+            <button type="submit">Submit</button>
+            <br>
+    </form>
+
+    <h1>Quotable Quotes</h1>
+    <div>
+        {% for quote in not_my_faves %}
+            <p><b>Author: {{ quote.author }}</b></p>
+            <p>Quote: {{ quote.text }}</p>
+            <p>Posted by: <a href='/users/{{quote.posted_by.id}}'> {{ quote.posted_by.name }} </a> | <a href="/addQuote/{{quote.id}}">Add To My List</a></p>
+            <br>
+        {% endfor %}
+
+    </div>
+    <h1>Your Favorites</h1>
+    <div>
+        {% for quote in my_faves %}
+            <p><b>Author: {{ quote.author }}</b></p>
+            <p>Quote: {{ quote.text }}</p>
+            <p>Posted by: <a href='/users/{{quote.posted_by.id}}'> {{ quote.posted_by.name }} </a> | <a href="/removeQuote/{{quote.id}}">Remove From My List</a></p>
+            <br>
+        {% endfor %}
+
+    </div>
+</body>
+</html>

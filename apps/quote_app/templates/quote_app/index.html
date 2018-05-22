@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login and Registration</title>
+</head>
+
+<body>
+  <h3>Welcome!</h3>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="error"> {{ message }} </div>
+      {% endfor %}
+    {% endif %}
+  <div>
+      <div class=registration>
+          <p>Register</p>
+          <form action='/processReg' method='post'>
+              {% csrf_token %}
+              <div>
+                  <label for='name'>Name:</label>
+                  <input type="text" name="name">
+              </div>
+              <div>
+                  <label for='alias'>Alias:</label>
+                  <input type="text" name="alias">
+              </div>
+              <div>
+                  <label for='email'>Email:</label>
+                  <input type="text" name="email">
+              </div>
+              <div>
+                  <label for='password'>Password:</label>
+                  <input type="password" name="password">
+              </div>
+              <div>
+                  *Password shoud be at least 8 characters
+                  <br>
+                  <label for='confirmPW'>Confirm PW:</label>
+                  <input type="password" name="confirmPW">
+              </div>
+              <div>
+                <label for='dateOfBirth'>Date of Birth</label>
+                <input type="date" name="dateOfBirth">
+              </div>
+              <input type='submit' value='Register'>
+          </form>
+      </div>
+      <br>
+      <div class=login>
+          <p>Login</p>
+          <form action='/processLog' method='post'>
+              {% csrf_token %}
+              <div>
+                  <label for='email'>Email:</label>
+                  <input type="text" name="Username">
+              </div>
+              <div>
+                  <label for='password'>Password:</label>
+                  <input type="password" name="password">
+              </div>
+              <input type='submit' value='Login'>
+          </form>
+      </div>
+  </div>
+</body>
+
+</html>
